@@ -46,6 +46,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Width="120" Content="{x:Static local:MessageStrings.OpenButtonText}" Click="OpenButtonClick" FocusVisualStyle="{x:Null}" />
                 <Button Width="120" Content="{x:Static local:MessageStrings.ClipboardButtonText}" Click="ClipboardButtonClick" FocusVisualStyle="{x:Null}" Margin="10,0,0,0" />
+                <Button Width="120" Content="{x:Static local:MessageStrings.MatchButtonText}" Click="MatchButtonClick" FocusVisualStyle="{x:Null}" Margin="10,0,0,0" />
             </StackPanel>
             <ToggleButton x:Name="wordWrapToggleButton"
                           Grid.Column="1"

@@ -1,7 +1,9 @@
 using System;
 using System.Reactive.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.IO;
 using System.Windows.Annotations;
@@ -84,6 +86,27 @@ namespace Inverse.XPath
             this.LoadDocument();
         }
 
+        private void MatchButtonClick(object sender, RoutedEventArgs e)
+        {
+            var annotations = new StringBuilder();
+
+            foreach (var annotation in this.service.Store.GetAnnotations())
+            {
+                var annotationText = GetAnnotationText(annotation);
+
+                if (annotationText != null)
+                {
+                    annotations.AppendLine(annotationText);
+                }
+            }
+
+            if (annotations.Length > 0)
+            {
+                this.document = annotations.ToString();
+                this.LoadDocument();
+            }
+        }
+
         private void WordWrapCheckBoxChecked(object sender, RoutedEventArgs e)
         {
             this.SetWordWrap();
@@ -123,7 +146,15 @@ namespace Inverse.XPath
 
                 foreach (var match in matches)
                 {
-                    this.docReader.HighlightText(this.service, match.StreamPosition, match.OuterHtml.Length);
+                    var html = match.OuterHtml;
+
+                    // Cannot annotate an empty selection (this should never occur anyway)
+                    if (html.Length < 1)
+                    {
+                        continue;
+                    }
+
+                    this.docReader.HighlightText(this.service, match.StreamPosition, html.Length);
                 }
 
                 this.countTextBlock.Text = String.Format(MessageStrings.MatchesFoundText, matches.Count);
@@ -164,6 +195,23 @@ namespace Inverse.XPath
             {
                 this.docReader.SetDynamicPageWidth(this.document);
             }
+        }
+
+        private string GetAnnotationText(Annotation annotation)
+        {
+            var anchorInfo = AnnotationHelper.GetAnchorInfo(service, annotation);
+            var resolvedAnchor = anchorInfo.ResolvedAnchor as TextAnchor;
+
+            if (resolvedAnchor != null)
+            {
+                var startPointer = (TextPointer)resolvedAnchor.BoundingStart;
+                var endPointer = (TextPointer)resolvedAnchor.BoundingEnd;
+                var range = new TextRange(startPointer, endPointer);
+
+                return range.Text;
+            }
+
+            return null;
         }
     }
 }

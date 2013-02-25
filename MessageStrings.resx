@@ -121,7 +121,10 @@
     <value>XPath Visualiser</value>
   </data>
   <data name="ClipboardButtonText" xml:space="preserve">
-    <value>Paste Clipboard</value>
+    <value>Load clipboard</value>
+  </data>
+  <data name="MatchButtonText" xml:space="preserve">
+    <value>Load matched text</value>
   </data>
   <data name="MatchesFoundText" xml:space="preserve">
     <value>{0} matches found</value>
@@ -130,9 +133,9 @@
     <value>No matches found</value>
   </data>
   <data name="OpenButtonText" xml:space="preserve">
-    <value>Load File</value>
+    <value>Load file</value>
   </data>
   <data name="WordWrapButtonText" xml:space="preserve">
-    <value>Toggle Word Wrap</value>
+    <value>Toggle word wrap</value>
   </data>
 </root>

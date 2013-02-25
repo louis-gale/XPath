@@ -70,11 +70,20 @@ namespace Inverse.XPath {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paste Clipboard.
+        ///   Looks up a localized string similar to Load clipboard.
         /// </summary>
         public static string ClipboardButtonText {
             get {
                 return ResourceManager.GetString("ClipboardButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load matched text.
+        /// </summary>
+        public static string MatchButtonText {
+            get {
+                return ResourceManager.GetString("MatchButtonText", resourceCulture);
             }
         }
         
@@ -97,7 +106,7 @@ namespace Inverse.XPath {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load File.
+        ///   Looks up a localized string similar to Load file.
         /// </summary>
         public static string OpenButtonText {
             get {
@@ -106,7 +115,7 @@ namespace Inverse.XPath {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle Word Wrap.
+        ///   Looks up a localized string similar to Toggle word wrap.
         /// </summary>
         public static string WordWrapButtonText {
             get {
