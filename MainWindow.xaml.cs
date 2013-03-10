@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Reactive.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,11 @@ namespace Inverse.XPath
     {
         private static readonly Brush TextBrush = new SolidColorBrush(Colors.Black);
         private static readonly Brush ErrorBrush = new SolidColorBrush(Colors.Red);
+
+        // Unfortunately, HAP does not provide a public way to access the unmodified, original parsed HTML, but there is an internal field which provides this information
+        // eg - <a href="promotions.asp" > gets trimmed to <a href="promotions.asp"> (unnecessary whitespace inside node removed) which then causes the selection to be short
+        // Refer http://stackoverflow.com/questions/12861994/possible-to-get-htmlnodes-position-length-within-original-input for more information
+        private static readonly FieldInfo HtmlNodeOuterLengthFieldInfo = typeof(HtmlNode).GetField("_outerlength", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private Stream annotationStream;
         private AnnotationService service;
@@ -149,15 +155,15 @@ namespace Inverse.XPath
 
                 foreach (var match in matches)
                 {
-                    var html = match.OuterHtml;
+                    var htmlLength = (int)HtmlNodeOuterLengthFieldInfo.GetValue(match);
 
                     // Cannot annotate an empty selection (this should never occur anyway)
-                    if (html.Length < 1)
+                    if (htmlLength < 1)
                     {
                         continue;
                     }
 
-                    this.docReader.HighlightText(this.service, match.StreamPosition, html.Length);
+                    this.docReader.HighlightText(this.service, match.StreamPosition, htmlLength);
                 }
 
                 this.countTextBlock.Text = String.Format(MessageStrings.MatchesFoundText, matches.Count, duration);
