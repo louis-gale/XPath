@@ -88,7 +88,7 @@ namespace Inverse.XPath {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} matches found.
+        ///   Looks up a localized string similar to {0} matches found in {1} ms.
         /// </summary>
         public static string MatchesFoundText {
             get {

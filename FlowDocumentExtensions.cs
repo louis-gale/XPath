@@ -40,12 +40,10 @@ namespace Inverse.XPath
         internal static void HighlightText(this FlowDocumentScrollViewer viewer, AnnotationService service, int offset, int length)
         {
             var brush = new SolidColorBrush(Color.FromArgb(127, (byte)random.Next(200), (byte)random.Next(200), (byte)random.Next(200)));
-            var textRange = viewer.Selection;
-            var start = viewer.Document.ContentStart;
-            var startPos = start.GetOffsetTextPointer(offset);
-            var endPos = start.GetOffsetTextPointer(offset + length);
+            var startPos = viewer.Document.ContentStart.GetOffsetTextPointer(offset);
+            var endPos = startPos.GetOffsetTextPointer(length);
 
-            textRange.Select(startPos, endPos);
+            viewer.Selection.Select(startPos, endPos);
 
             AnnotationHelper.CreateHighlightForSelection(service, String.Empty, brush);
             //textRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);

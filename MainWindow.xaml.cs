@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
@@ -136,7 +137,9 @@ namespace Inverse.XPath
 
             try
             {
+                var timer = Stopwatch.StartNew();
                 var matches = htmlDocument.DocumentNode.SelectNodes(xpath);
+                var duration = timer.ElapsedMilliseconds;
 
                 if (matches == null)
                 {
@@ -157,7 +160,7 @@ namespace Inverse.XPath
                     this.docReader.HighlightText(this.service, match.StreamPosition, html.Length);
                 }
 
-                this.countTextBlock.Text = String.Format(MessageStrings.MatchesFoundText, matches.Count);
+                this.countTextBlock.Text = String.Format(MessageStrings.MatchesFoundText, matches.Count, duration);
             }
             catch (XPathException e)
             {

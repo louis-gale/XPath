@@ -127,7 +127,7 @@
     <value>Load matched text</value>
   </data>
   <data name="MatchesFoundText" xml:space="preserve">
-    <value>{0} matches found</value>
+    <value>{0} matches found in {1} ms</value>
   </data>
   <data name="NoMatchesFoundText" xml:space="preserve">
     <value>No matches found</value>
