@@ -1,8 +1,8 @@
-#XPath Visualiser
+XPath Visualiser
 
 This tool allows you to develop and test XPath 1.0 expressions. You can visualise the results of the XPath expression on a piece of text, which can be any form of markup, including HTML, SOAP and XML.
 
-#Why is this tool different from other XPath visualiser tools?
+Why is this tool different from other XPath visualiser tools?
 
 The big advantage of this tool is that it is very forgiving on the structure of the markup that is being used. You can even use incomplete markup fragments without matching elements! The problem with many other XPath visualisation tools is that they require the markup to be 100% valid syntax. This is because behind the scenes they use the .NET XML library which has very strict requirements about the XML that it will process. The problem is, that many HTML and other markup sources are less than perfect, meaning they cannot be used in such tools.
 
